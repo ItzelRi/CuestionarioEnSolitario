@@ -1,13 +1,7 @@
 import { Schema, model } from "mongoose"
+import { IUser
 
-interface IUser{
-    name:string;
-    email:string;
-    lastName:string;
-    password:string;
-    rol: "administrator" | "client"
-}
-
+ } from "../GrobalTypes";
     const UserSchema = new Schema<IUser>({
         name:{
             type:String,

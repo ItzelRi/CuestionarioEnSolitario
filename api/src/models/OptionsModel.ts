@@ -1,16 +1,12 @@
 import { Schema, model } from "mongoose";
-
-interface IOptions{
-    title: string;
-    qId: Schema.Types.ObjectId | string;
-}
+import { IOptions } from "../GrobalTypes";
 
 const OptionSchema = new Schema<IOptions>({
     title:{
         type:String,
         required: true
     },
-    qId:{
+    qId:{ 
         type: Schema.Types.ObjectId,
         ref:"questions",
         required:true

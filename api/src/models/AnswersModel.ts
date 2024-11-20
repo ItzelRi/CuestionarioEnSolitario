@@ -1,10 +1,5 @@
 import { Schema, model } from "mongoose";
-
-interface IAnswer{
-    qstId:Schema.Types.ObjectId | string;
-    qId:Schema.Types.ObjectId | string;
-    answer:string;
-}
+import { IAnswer } from "../GrobalTypes";
 
 const AnswerSchema = new Schema<IAnswer>({
     qstId:{
