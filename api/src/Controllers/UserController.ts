@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { UserModel } from "../models/UsersModel";
+import jwt from "jsonwebtoken";
 
 export const registerUsers = async (req:Request,res:Response)
 :Promise<any> => {
@@ -29,15 +30,17 @@ export const registerUsers = async (req:Request,res:Response)
             })
         }
 
-        await UserModel.create({
+        const user = await UserModel.create({
             name,
             lastName,
             email,
             password,
             rol
         })
+        const token = jwt.sign(JSON.stringify(user), "pocoyo");
+
         return res.status(200).json({
-            msg:"Usuario registrado con exito"
+            msg:"Usuario registrado con exito", token
         })
 
     } catch (error) {
@@ -47,3 +50,30 @@ export const registerUsers = async (req:Request,res:Response)
         })
     }
 }
+
+export const signIn = async (req:Request, res:Response)
+:Promise<any> =>{
+
+    //verificar existencia de usuario
+    try{
+    const user = await UserModel.findOne({email:req.body.email, 
+        password:req.body.password})
+
+    //si si devuelve token
+    if(user){
+    const token = jwt.sign(JSON.stringify(user), "poyoyopo");
+    return res.status(200).json({
+        msg: "Iniciando sesion..."
+    })
+    }else{
+    return res.status(200).json({
+        msg: "No hay usuarios que coincidan"
+    })}
+
+    //si no devuelve error
+    }catch (error) {
+    console.log(error);
+    return res.status(500).json({
+        msg:"Error al buscar usuario"
+    })
+}}
