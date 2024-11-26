@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
+import axios from "axios";
 
 
 const App = () => {
@@ -12,10 +13,14 @@ const App = () => {
     setData(loginData)
   }
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     //Peticion a la DB
-    console.log(data)
-  }
+    try {
+      await axios.post("http://localhost:4000/users/signin", data)
+      alert("Incio de sesion exitoso!")
+  } catch (error) {
+      alert("Tu correo y/o contrasena estan mal")
+  }}
 
   return (
     <Container className="mt-3">

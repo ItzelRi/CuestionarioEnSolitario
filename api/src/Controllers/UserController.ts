@@ -60,20 +60,20 @@ export const signIn = async (req:Request, res:Response)
         password:req.body.password})
 
     //si si devuelve token
-    if(user){
-    const token = jwt.sign(JSON.stringify(user), "poyoyopo");
-    return res.status(200).json({
-        msg: "Iniciando sesion..."
-    })
-    }else{
-    return res.status(200).json({
+    if(!user){
+        return res.status(400).json({
         msg: "No hay usuarios que coincidan"
-    })}
-
+    })
+}   
+        const token = jwt.sign(JSON.stringify(user), "poyoyopo");
+        return res.status(200).json({
+            msg: "Iniciando sesion..."
+    })
+    
     //si no devuelve error
-    }catch (error) {
+}catch (error) {
     console.log(error);
     return res.status(500).json({
-        msg:"Error al buscar usuario"
+        msg:"Error al iniciar sesion"
     })
 }}

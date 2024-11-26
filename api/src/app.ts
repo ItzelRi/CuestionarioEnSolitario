@@ -15,6 +15,6 @@ app.get("/", (_req:Request, res:Response)=>{
 
 //Usuarios
 app.post("/users/create", registerUsers)
-app.get("/users/signin", signIn)
+app.post("/users/signin", signIn)
 
 export default app;
