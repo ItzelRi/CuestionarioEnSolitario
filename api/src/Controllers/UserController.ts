@@ -64,12 +64,11 @@ export const signIn = async (req:Request, res:Response)
         return res.status(400).json({
         msg: "No hay usuarios que coincidan"
     })
-}   
+}       
         const token = jwt.sign(JSON.stringify(user), "poyoyopo");
         return res.status(200).json({
-            msg: "Iniciando sesion..."
+            msg: "Iniciando sesion...", token, user
     })
-    
     //si no devuelve error
 }catch (error) {
     console.log(error);
