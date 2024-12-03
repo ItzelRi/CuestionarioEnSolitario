@@ -69,7 +69,7 @@ export const signIn = async (req:Request, res:Response)
         return res.status(200).json({
             msg: "Iniciando sesion...", token, user
     })
-    //si no devuelve error
+    //si no devuelve errorz
 }catch (error) {
     console.log(error);
     return res.status(500).json({
