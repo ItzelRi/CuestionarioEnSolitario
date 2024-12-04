@@ -17,7 +17,7 @@ const App = () => {
     //Peticion a la DB
     try {
      const res = await axios.post("http://localhost:4000/users/signin", data)
-     const user = res.data;
+     const user = res.data.user;
      user.logined = true
      localStorage.user = JSON.stringify(user)
      navigate("/list-q")

@@ -1,20 +1,30 @@
 import React, { useEffect, useState } from 'react'
 import { Card, Col, Container, Dropdown, Form, Row } from 'react-bootstrap';
+import axios from 'axios';
 
 export const ListQuestionnaires = ({ rol }) => {
 
-    const [questionnaires, setQuestionnaires] = useState([]);
+    const [questionnaire, setQuestionnaires] = useState([]);
 
     useEffect(() => {
-        const url = rol == "administrator" ? "/api/get-all-questionnaires" : "/api/get-questionnaires-by-user";
-        //axios.get(url) -> Devuelve un objeto "data";
+        getData()
     }, [])
+
+    const getData = async () => {
+        try {
+            const {data} = await axios.get("http://localhost:4000/questionnaire/get-all");
+            setQuestionnaires(data.questionnaire);
+        } catch (error) {
+            console.log(error)
+            alert("Hubo un error al obtener los cuestionarios")
+        }
+    }
 
     return (
         <Container>
             <Row>
                 {
-                    questionnaires.map(({ name, description }, i) => (
+                    questionnaire.map(({ name, description }, i) => (
                         <Col>
                             <Card style={{ width: "15rem" }} className='mb-3'>
                                 <Card.Body>
